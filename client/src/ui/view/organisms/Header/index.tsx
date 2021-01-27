@@ -74,7 +74,6 @@ const Header = () => {
             <div className={classes['header-search']} ref={searchFormRef}>
                 <TopSearch
                     onSearch={(value) => {
-                        console.log('value: ', value);
                         search.execute({ userName: value })
                     }}
                 />

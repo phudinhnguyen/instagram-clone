@@ -1,0 +1,42 @@
+.profile-card {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    padding: 8px 14px;
+    border-width: 0 0 1px 0;
+
+    .profile-card-icon {
+        padding: 0 10px 0 0;
+    }
+
+    .profile-card-info {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+
+        .profile-card-info-title {
+            overflow: hidden;
+            span {
+                line-height: 22px;
+            }
+        }
+        .profile-card-info-subtitle {
+            overflow: hidden;
+            span {
+                font-weight: 300;
+            }
+        }
+    }
+
+    .profile-card-actions {
+        display: flex;
+
+        > * {
+            margin: 0 8px 0 0;
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+}

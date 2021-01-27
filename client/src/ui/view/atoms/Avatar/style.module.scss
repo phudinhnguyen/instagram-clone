@@ -1,0 +1,61 @@
+.avatar {
+    position: relative;
+    display: block;
+    height: 32px;
+    width: 32px;
+    border: 1px solid rgba(var(--divider, 0, 0, 0), 1);
+    border-radius: 999px;
+    outline: 0;
+    background-color: rgba(var(--background-primary, 250, 250, 250), 1);
+    cursor: pointer;
+
+    &-small {
+        width: 24px;
+        height: 24px;
+    }
+
+    &-large {
+        width: 56px;
+        height: 56px;
+    }
+
+    .avatar-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
+    }
+
+    .avatar-story {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: calc(100% + 12px);
+        height: calc(100% + 12px);
+        fill: none;
+        stroke: rgba(var(--divider), 1);
+        stroke-linecap: round;
+        stroke-width: 2;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+
+        &-loading {
+            animation: stroke-draw 2s ease-out infinite alternate;
+        }
+
+        &-active {
+            stroke: #8a3ab9;
+        }
+    }
+}
+
+@keyframes stroke-draw {
+    from {
+        // stroke: #8a3ab9;
+        stroke-dasharray: 1;
+    }
+    to {
+        // stroke: #cd486b;
+        transform: rotate(180deg);
+        stroke-dasharray: 8;
+    }
+}

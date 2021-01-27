@@ -1,0 +1,39 @@
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .header-logo {
+        display: flex;
+        flex-grow: 1;
+        margin: 7px 0 0 0;
+    }
+
+    .header-search {
+        position: relative;
+
+        .header-search-data {
+            position: absolute;
+            top: 30px;
+            overflow-y: auto;
+            width: 100%;
+            height: 300px;
+        }
+    }
+
+    .header-navigation {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .header-notification {
+        position: absolute;
+        right: 0;
+        overflow-y: auto;
+        top: 58px;
+        width: 500px;
+        height: 300px;
+    }
+}

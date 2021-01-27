@@ -1,0 +1,33 @@
+.svg-icon {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    width: 22px;
+    height: 22px;
+    fill: rgba(var(--text-primary, 38, 38, 38), 1);
+
+    &-small {
+        width: 12px;
+        height: 12px;
+    }
+
+    &-spin {
+        animation: spin 2s linear 0s infinite;
+        -webkit-animation: spin 2s linear 0s infinite;
+        -moz-animation: spin 2s linear 0s infinite;
+        -o-animation: spin 2s linear 0s infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}

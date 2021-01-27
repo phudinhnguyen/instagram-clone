@@ -1,0 +1,28 @@
+.text {
+    color: rgba(var(--text-primary, 38, 38, 38), 1);
+    font-size: 14px;
+
+    &-bold {
+        font-weight: bold !important;
+    }
+
+    &-large {
+        font-size: 16px;
+    }
+
+    &-small {
+        font-size: 12px;
+    }
+
+    &-secondary {
+        color: rgba(var(--text-secondary,142,142,142),1);
+    }
+
+    &-info {
+        color: rgba(var(--text-info, 0, 55, 107), 1);
+    }
+
+    &-danger {
+        color: rgba(var(--text-danger, 237, 73, 86), 1);
+    }
+}

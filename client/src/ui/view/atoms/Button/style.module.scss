@@ -1,0 +1,62 @@
+.button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    width: auto;
+    padding: 5px 9px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    background-color: rgba(var(--button-info,0,149,246),1);
+    line-height: 18px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    text-transform: inherit;
+    text-overflow: ellipsis;
+    color: rgba(var(--eca,255,255,255),1);
+    cursor: pointer;
+
+    &:active {
+        background-color: rgba(var(--button-info,0,149,246),.7);
+    }
+
+    &:disabled {
+        pointer-events: none;
+        background-color: rgba(var(--button-info,0,149,246),.3);
+    }
+
+    &-full-width {
+        width: 100%;
+    }
+
+    &-outlined {
+        border: 1px solid rgba(var(--divider,219,219,219),1);
+        background-color: transparent;
+        color: rgba(var(--text-primary,38,38,38),1);
+
+        &:active {
+            background-color: transparent;
+            opacity: .7;
+        }
+    
+        &:disabled {
+            background-color: transparent;
+            opacity: .7;
+        }
+    }
+
+    &-text {
+        padding: 0;
+        background-color: transparent !important;
+        color: rgba(var(--button-info,0,149,246),1);
+
+        &:active {
+            opacity: .7;
+        }
+
+        &:disabled {
+            color: rgba(var(--button-info,0,149,246),.7);
+        }
+    }
+}

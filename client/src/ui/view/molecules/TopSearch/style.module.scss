@@ -1,0 +1,22 @@
+.top-search {
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+    width: 250px;
+    height: 28px;
+    padding: 0 7px;
+    border-radius: 3px;
+
+    .top-search-input {
+        height: 100%;
+
+        input {
+            height: 100%;
+            border: 0;
+            outline: 0;
+            padding: 0 7px;
+            line-height: 28px;
+            font-size: 14px;
+        }
+    }
+}

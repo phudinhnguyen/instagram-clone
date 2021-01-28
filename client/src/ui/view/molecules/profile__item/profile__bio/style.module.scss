@@ -1,0 +1,31 @@
+.profile-bio {
+    float: left;
+    width: calc(66.666% - 2rem);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 2.3rem;
+}
+
+@media screen and (max-width: 40rem) {
+    .profile-bio {
+        float: none;
+        width: auto;
+        font-size: 1.4rem;
+        margin-top: 1.5rem;
+        flex-basis: 100%;
+    }
+}
+@supports (display: grid) {
+    .profile-bio {
+        width: auto;
+        margin: 0;
+    }
+
+    @media (max-width: 40rem) {
+        .profile-bio {
+            grid-column: 1 / -1;
+            margin: 0;
+        }
+    }
+}

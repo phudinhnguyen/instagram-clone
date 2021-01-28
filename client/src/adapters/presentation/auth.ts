@@ -34,7 +34,7 @@ class AuthPresenter extends AuthInteractor {
         const userIntoractor = new UserInteractor()
 
         userIntoractor.getUserInfo(loginResponse.userInfo._id).then(res => {
-            store.dispatch(profileStore.actions.fetch(res))
+            store.dispatch(profileStore.actions.fetchProfile(res))
         })
 
         return loginResponse

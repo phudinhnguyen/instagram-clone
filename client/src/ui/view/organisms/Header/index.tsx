@@ -19,16 +19,18 @@ import NotificationEntity from '@entities/notification'
 import { debounce } from '@helper/functions'
 import Notification from '@view/molecules/Notification'
 import Loading from '@view/atoms/Loading'
+import { useHistory } from 'react-router'
 
 const Header = () => {
     const { search } = useUser()
     const listNotificationStore = useSelector((state: RootState) => state.notification)
     const { getListNotification, listNotification } = useNotification(listNotificationStore)
-    const searchFormRef: any = useRef()
-    const searchDataRef: any = useRef()
-    const notificationRef: any = useRef()
+    const history = useHistory()
+    const searchFormRef: any = createRef()
+    const searchDataRef: any = createRef()
+    const notificationRef: any = createRef()
 
-    const [ state, setState ] = useState({
+    const [state, setState] = useState({
         openNotification: false,
         openSearchBox: false
     })
@@ -43,21 +45,20 @@ const Header = () => {
         }
     })
 
-    function onClickOutside(event: any) {
+    const onClickOutside = (event) => {
+        let newState = { ...state }
         if (
             !searchDataRef.current.contains(event.target) &&
             !searchFormRef.current.contains(event.target)
         ) {
-            setState((prevState) => {
-                return { ...prevState, openSearchBox: false }
-            })
+            newState.openSearchBox = false
         }
 
-        if (state.openNotification && !notificationRef.current.contains(event.target)) {
-            setState((prevState) => {
-                return { ...prevState, openNotification: false }
-            })
+        if (!notificationRef.current.contains(event.target)) {
+            newState.openNotification = false
         }
+
+        setState(newState)
     }
 
     const handleSearch = debounce(function (value) {
@@ -76,11 +77,11 @@ const Header = () => {
     }, 500);
 
     return (
-        <Box className={classes[ 'header' ]}>
-            <Box className={classes[ 'header-logo' ]}>
+        <Box className={classes['header']}>
+            <Box className={classes['header-logo']}>
                 <Logo />
             </Box>
-            <div className={classes[ 'header-search' ]} ref={searchFormRef}>
+            <div className={classes['header-search']} ref={searchFormRef}>
                 <TopSearch
                     onFocus={(e) => {
                         if (e.target.value != "") {
@@ -89,29 +90,28 @@ const Header = () => {
                     }}
                     onSearch={handleSearch}
                 />
-
-                {
-                    state.openSearchBox && search?.value && <div ref={searchDataRef}>
-                        <Box className={classes[ 'header-search-data' ]} bordered>
+                <div ref={searchDataRef}>
+                    {
+                        state.openSearchBox && search?.value &&
+                        <Box className={classes['header-search-data']} bordered>
                             {
                                 search?.value?.length != 0 ?
-                                    <div>
-                                        {search?.value?.map((user: User, index) => (
+                                    search?.value?.map((user: User, index) => (
+                                        <div onClick={() => history.push(`/profile/${user._id}`)}>
                                             <ProfileCard
                                                 key={user._id}
                                                 icon={<Avatar src={user.avatar} />}
                                                 title={user.userName}
-                                                subtitle="ThaiHoangAnh"
+                                                subtitle={user.fullName}
                                             />
-                                        ))}
-                                    </div> :
-                                    "nodata"
+                                        </div>
+                                    )) : "nodata"
                             }
                         </Box>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-            <Box className={classes[ 'header-navigation' ]}>
+            <Box className={classes['header-navigation']}>
                 <TopNavigation
                     openNotification={state.openNotification}
                     onOpenNotification={() => {
@@ -123,9 +123,9 @@ const Header = () => {
                 />
             </Box>
 
-            {state.openNotification && (
-                <div ref={notificationRef}>
-                    <Box className={classes[ `header-notification` ]} bordered>
+            <div ref={notificationRef}>
+                {state.openNotification && (
+                    <Box className={classes[`header-notification`]} bordered>
                         {
                             getListNotification.status == "loading" ? <Loading /> :
                                 <>
@@ -135,8 +135,8 @@ const Header = () => {
                                 </>
                         }
                     </Box>
-                </div>
-            )}
+                )}
+            </div>
         </Box>
     )
 }

@@ -5,8 +5,6 @@ import Box from '@view/atoms/Box'
 import Header from '@view/organisms/Header'
 
 import classes from './style.module.scss'
-import AuthPresenter from 'src/adapters/presentation/auth'
-import useUser from 'src/ui/viewModels/useUser'
 
 export interface LayoutProps {
     children?: React.ReactNode
@@ -14,8 +12,6 @@ export interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = (props) => {
     const { children } = props
-    const { getToken } = new AuthPresenter()
-    const { getProfile } = useUser()
 
     const [state, setState] = useState(() => {
         return {
@@ -29,23 +25,16 @@ const Layout: React.FC<LayoutProps> = (props) => {
                 return { ...prevState, device: 'mobile' }
             })
         }
-        const token = getToken()
-        if (token) {
-            getProfile()
-        }
     }, [])
 
-    if (true) {
-        return (
-            <Box className={classes['layout']} data-device={state.device}>
-                <Box className={classes['layout-header']} bordered>
-                    <Header />
-                </Box>
-                <Box className={classes['layout-content']}>{children}</Box>
+    return (
+        <Box className={classes['layout']} data-device={state.device}>
+            <Box className={classes['layout-header']} bordered>
+                <Header />
             </Box>
-        )
-    } else {
-    }
+            <Box className={classes['layout-content']}>{children}</Box>
+        </Box>
+    )
 }
 
 export default Layout

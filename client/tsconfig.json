@@ -14,20 +14,51 @@
       "dom"
     ],
     "paths": {
-      "@recoil/*": ["src/adapters/recoil/*"],
-      "@entities/*": ["src/domain/entities/*"],
-      "@stores/*": ["src/adapters/stores/*"],
-      "@useCases/*": ["src/domain/useCases/*"],
-      "@repository/*": ["src/adapters/repository/*"],
-      "@view/*": ["src/ui/view/*"],
-      "@assets/*": ["src/ui/shared/assets/*"],
-      "@components/*": ["src/ui/shared/components/*"],
-      "@config/*": ["src/ui/shared/config/*"],
-      "@helper/*": ["src/ui/shared/helper/*"],
-      "@routers/*": ["src/ui/shared/routers/*"],
-      "@hoc/*": ["src/ui/shared/hoc/*"],
-      "@hook/*": ["src/ui/shared/hook/*"],
-      "@translateKey/*": ["src/ui/shared/translateKey/*"],
+      "@recoil/*": [
+        "src/adapters/recoil/*"
+      ],
+      "@entities/*": [
+        "src/domain/entities/*"
+      ],
+      "@presentation/*": [
+        "src/adapters/presentation/*"
+      ],
+      "@stores/*": [
+        "src/adapters/stores/*"
+      ],
+      "@useCases/*": [
+        "src/domain/useCases/*"
+      ],
+      "@repository/*": [
+        "src/adapters/repository/*"
+      ],
+      "@view/*": [
+        "src/ui/view/*"
+      ],
+      "@assets/*": [
+        "src/ui/shared/assets/*"
+      ],
+      "@components/*": [
+        "src/ui/shared/components/*"
+      ],
+      "@config/*": [
+        "src/ui/shared/config/*"
+      ],
+      "@helper/*": [
+        "src/ui/shared/helper/*"
+      ],
+      "@routers/*": [
+        "src/ui/shared/routers/*"
+      ],
+      "@hoc/*": [
+        "src/ui/shared/hoc/*"
+      ],
+      "@hook/*": [
+        "src/ui/shared/hook/*"
+      ],
+      "@translateKey/*": [
+        "src/ui/shared/translateKey/*"
+      ],
     },
     "types": [
       "node",

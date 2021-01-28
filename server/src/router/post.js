@@ -15,26 +15,27 @@ router.get('/:postId',
 
 router.post('/',
     pipe(
-        (req) => {
-            return [{
+        async (req,res) => {
+            const post = {
                 author: req.user._id,
                 ...req.body,
                 tags: req.body.tags.map(userId => ObjectID(userId))
-            }]
-        },
-        postController.insert,        
-    ),
-    pipe(
-        (req,res) => {
+            }
+
+            const [resPost] = await postController.insert(post)
+            
             if(!Array.isArray(req.body.tags)) return 
+
             const notification = {
-                type: 0,
+                type: 2,
                 createdBy: ObjectID(req.user._id),
                 actionContent: req.body,
+                postId: ObjectID(resPost._id),
                 receiver: req.body.tags.map(userId => ObjectID(userId))
             }
 
-            notificationController.emitNotification(notification)
+            notificationController.emitNotification(notification, res.io)
+            return [notification]
         },
         notificationController.insert,
         { end: true }
@@ -83,7 +84,7 @@ router.post('/:postId/like',
                 type: 0,
                 createdBy: ObjectID(req.user._id),
                 receiver: [ObjectID(post.author._id)],
-                impactedObjectId: ObjectID(req.params.postId)
+                postId: ObjectID(req.params.postId)
             }
             notificationController.emitNotification(notification, res.io)
             return [notification]

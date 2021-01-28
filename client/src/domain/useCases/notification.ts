@@ -6,7 +6,6 @@ class NotificationInteractor extends NoTificationRepository {
         return await super.getListNotification(userId).then(res => {
             if (!Array.isArray(res)) return []
             return res.map(item => {
-                console.log('new NotificationEntity(item): ', new NotificationEntity(item));
                 return new NotificationEntity(item)
             })
         })

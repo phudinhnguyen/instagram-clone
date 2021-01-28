@@ -63,12 +63,16 @@ router.post('/like',
     pipe(
         async req => {
             const comment = await commentController.getById(req.commentId)
-            return [{
+            const notification = {
                 type: 0,
                 createdBy: ObjectID(req.user._id),
                 receiver: [ObjectID(comment.author._id)],
-                impactedObjectId: ObjectID(req.commentId)
-            }]
+                postId: ObjectID(req.commentId)
+            }
+
+            notificationController.emitNotification(notification)
+
+            return [notification]
         },
         notificationController.insert,
         {end:true}
@@ -107,7 +111,7 @@ router.post('/:postId',
         commentController.insert,
     ),
     pipe(
-        async (req) => {
+        async (req, res) => {
             const post = await postController.getById(req.params.postId)
 
             const notification = {
@@ -118,7 +122,7 @@ router.post('/:postId',
                     ...req.body.tags.map(userId => ObjectID(userId)),
                     ObjectID(post.author._id),
                 ],
-                impactedObjectId: ObjectID(req.params.postId),
+                postId: ObjectID(req.params.postId),
             }
 
             notificationController.emitNotification(notification, res.io)
@@ -145,7 +149,7 @@ router.post('/reply/:parentId',
         commentController.insert,        
     ),
     pipe(
-        async (req) => {
+        async (req, res) => {
             const comment = await postController.getById(req.params.parentId)
 
             const notification = {
@@ -156,7 +160,7 @@ router.post('/reply/:parentId',
                     ...req.body.tags.map(userId => ObjectID(userId)),
                     ObjectID(comment.author._id),
                 ],
-                impactedObjectId: ObjectID(req.params.postId),
+                postId: ObjectID(req.params.postId),
             }
 
             notificationController.emitNotification(notification, res.io)

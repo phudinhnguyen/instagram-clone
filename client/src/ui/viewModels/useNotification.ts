@@ -8,18 +8,22 @@ const useNotification = (listNotification: Array<NotificationEntity>) => {
 
     const getContentByType = (notif: NotificationEntity) => {
         switch (notif.type) {
+            case 0:
+                return "like your photo."
             case 1:
-                return notif.actionContent.content
+                return `commented: ${ notif.actionContent.content }`
             case 2:
+                return `mention you in his photo`
+            case 3:
                 return notif.actionContent.content
 
             default:
-                return 'like'
+                return ''
         }
     }
 
     const convertListNotification = (listNotif) => {
-        listNotif.map(notif => ({
+        return listNotif.map(notif => ({
             ...notif,
             content: getContentByType(notif)
         }))
@@ -27,7 +31,7 @@ const useNotification = (listNotification: Array<NotificationEntity>) => {
 
     return {
         listNotification: convertListNotification(listNotification),
-        getListNotification: useAsync(getListNotification)[0],
+        getListNotification: useAsync(getListNotification)[ 0 ],
         subcribeNotification
     }
 }

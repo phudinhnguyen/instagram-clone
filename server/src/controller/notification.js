@@ -3,6 +3,7 @@ const { ObjectID } = require("mongodb")
 const userController = require("../controller/user")
 const commentController = require("../controller/comment")
 const postController = require("../controller/post")
+const notification = require("../model/notification")
 
 let notificationController = {}
 
@@ -50,34 +51,46 @@ notificationController.emitNotification = (notification, io) => {
     })
 }
 
+notificationController.checkType = (type) => {
+    switch (type) {
+        case 0: return "like"
+        case 1: return "comment"
+        case 2: return "tag"
+        case 3: return "follow"
+        case 4: return "accept"
+        case 5: return "post"
+    
+        default: return null
+    }
+}
+
 notificationController.getDetail = async (notification) => {
-    let detailNotification = notification
+    let detailNotification = {
+        type: notification.type
+    }
 
     detailNotification.createdby = await userController.getById(notification.createdBy)
+    detailNotification.post = await postController.getById(notification.postId)
 
-    if (notification.type == 1) {
-        // comment
-        detailNotification.actionContent = await commentController.getById(notification.actionContent)
+    if (notificationController.checkType(notification.type) == "comment") {
+        detailNotification.actionContent = notification.actionContent
     }
 
-    if (notification.impactedObjectId) {
-        detailNotification.impactedObject = await postController.getById(notification.impactedObjectId)
-    }
 
     return detailNotification
 }
 
 notificationController.getListNotificationOfUser = async (userId, loadmore = {}) => {
-    const notifs = await notificationController.getByFilter({
+    let notifs = await notificationController.getByFilter({
         receiver: {
             $elemMatch: { $eq: ObjectID(userId) }
         }
     }, {}, loadmore)
-
+    
     let listNotifDetail = []
 
     for (let index = 0; index < notifs.length; index++) {
-        const notifDetail = await notificationController.getDetail(notifs[index])
+        let notifDetail = await notificationController.getDetail(notifs[index])
         listNotifDetail.push(notifDetail)
     }
 

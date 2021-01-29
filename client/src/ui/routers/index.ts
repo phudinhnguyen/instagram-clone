@@ -1,4 +1,5 @@
 import Home from "@view/pages/Home/index";
+import Direct from "@view/pages/Message";
 
 export const routers: Array<{
     path: string,
@@ -11,5 +12,11 @@ export const routers: Array<{
             exact: true,
             isPrivate: true,
             Component: Home
+        },
+        {
+            path: "/direct",
+            exact: true,
+            isPrivate: true,
+            Component: Direct
         },
     ]

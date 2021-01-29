@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     if (token) {
-      getProfile()
+      getProfile.execute()
     } else {
       history.push('/login')
     }

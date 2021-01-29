@@ -1,5 +1,5 @@
 const User = require('../model/user')
-const { ObjectID } = require("mongodb")
+const { ObjectID, ObjectId } = require("mongodb")
 
 let userController = {}
 
@@ -8,8 +8,8 @@ userController.insert = async (data) => {
     return users
 }
 
-userController.getByFilter = async (filter = {}, projection = {}, loadmore={}) => {
-    const {limit, skip} = loadmore
+userController.getByFilter = async (filter = {}, projection = {}, loadmore = {}) => {
+    const { limit, skip } = loadmore
     const users = await User.find(filter, projection).limit(limit).skip(skip)
     return users
 }
@@ -116,6 +116,40 @@ userController.unfollow = async (userId, followerId) => {
         { following }
     )
     return true
+}
+
+userController.isFollowing = async (myId, userId) => {
+    // check my có đang follow user ko
+    const users = await userController.getByFilter({
+        _id: ObjectID(myId),
+        following: {
+            $elemMatch: {
+                $eq: userId
+            }
+        }
+    })
+
+    return users.length > 0
+}
+
+userController.getRelationship = async (myId, userId) => {
+    const isFollowing = await userController.isFollowing(myId, userId)
+    const isFollower = await userController.isFollowing(userId, myId)
+
+    return {
+        isFollowing,
+        isFollower
+    }
+}
+
+userController.getDetailUser = async (userId) => {
+    const user = await User.aggregate([
+        {
+            $match: {
+                _id: ObjectId(userId)
+            }
+        }
+    ])
 }
 
 module.exports = userController

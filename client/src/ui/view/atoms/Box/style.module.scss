@@ -1,8 +1,8 @@
 .box {
-    background-color: rgba(var(--background-primary,255,255,255),1);
-    
+    // background-color: rgba(var(--background-primary,255,255,255),1);
+
     &-bordered {
-        border: 1px solid rgba(var(--divider,219,219,219),1);
+        border: 1px solid rgba(var(--divider, 219, 219, 219), 1);
     }
 
     &-loading {

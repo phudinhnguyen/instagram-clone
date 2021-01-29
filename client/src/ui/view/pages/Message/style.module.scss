@@ -1,0 +1,99 @@
+.message-page {
+    height: calc(100vh - 89px - 35px);
+    display: flex;
+
+    .wrap {
+        height: 100%;
+        width: 35%;
+        border: 1px solid #dbdbdb;
+
+        .header {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #dbdbdb;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+
+            .myprofile {
+                display: flex;
+
+                .name {
+                    font-weight: 600;
+                    font-size: 16px;
+                    margin-right: 10px;
+                }
+            }
+
+            .edit-icon {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+        }
+
+        .list-boxchat {
+            .avatar {
+                height: 45px;
+                width: 45px;
+            }
+        }
+    }
+
+    .wrap-list-messages {
+        width: 65%;
+        border: 1px solid #dbdbdb;
+
+        .header {
+            height: 65px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            align-items: center;
+            padding: 0 20px 0 20px;
+
+            .profile-card {
+                border: none !important;
+            }
+        }
+
+        .list-messages {
+            width: 100%;
+            overflow: auto;
+            height: calc(100% - 60px);
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-direction: column-reverse;
+
+            .wrap-message {
+                display: flex;
+
+                .message {
+                    display: inline-block;
+                    color: #262626;
+                    width: fit-content;
+                    border-radius: 22px;
+                    padding: 12px;
+                    margin: 5px;
+                }
+            }
+
+            .wrap-message.author {
+                justify-content: flex-end;
+
+                .message {
+                    background-color: #efefef;
+                }
+            }
+
+            .wrap-message.other {
+                .message {
+                    border: 1px solid #efefef;
+                }
+            }
+        }
+    }
+}

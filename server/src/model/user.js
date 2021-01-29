@@ -24,6 +24,10 @@ const _schema = new Schema({
     type: String,
     required: true
   },
+  aboutMe: {
+    type: String,
+    required: true
+  },
   phone: {
     type: String
   },

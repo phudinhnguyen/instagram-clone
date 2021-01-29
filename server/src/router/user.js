@@ -87,6 +87,14 @@ router.post('/unfollow',
     )
 )
 
+router.get('/relationship/:userId',
+    pipe(
+        (req) => [req.user._id, req.params.userId],
+        userController.getRelationship,
+        { end: true }
+    )
+)
+
 module.exports = {
     router,
     config: {}

@@ -1,5 +1,6 @@
 .header {
     position: relative;
+    background-color: #fff;
     display: flex;
     align-items: center;
     width: 100%;
@@ -9,12 +10,14 @@
         display: flex;
         flex-grow: 1;
         margin: 7px 0 0 0;
+        cursor: pointer;
     }
 
     .header-search {
         position: relative;
 
         .header-search-data {
+            background-color: #fff;
             position: absolute;
             top: 30px;
             overflow-y: auto;
@@ -28,6 +31,9 @@
     }
 
     .header-notification {
+        max-height: 500px;
+        overflow: auto;
+        background-color: #fff;
         position: absolute;
         right: 0;
         overflow-y: auto;

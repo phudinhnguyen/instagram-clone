@@ -78,7 +78,7 @@ const Header = () => {
 
     return (
         <Box className={classes['header']}>
-            <Box className={classes['header-logo']}>
+            <Box className={classes['header-logo']} onClick={() => history.push("/")}>
                 <Logo />
             </Box>
             <div className={classes['header-search']} ref={searchFormRef}>
@@ -97,7 +97,10 @@ const Header = () => {
                             {
                                 search?.value?.length != 0 ?
                                     search?.value?.map((user: User, index) => (
-                                        <div onClick={() => history.push(`/profile/${user._id}`)}>
+                                        <div onClick={() => {
+                                            history.push(`/profile/${user._id}`)
+                                            setState(prev => ({ ...prev, openSearchBox: false }))
+                                        }}>
                                             <ProfileCard
                                                 key={user._id}
                                                 icon={<Avatar src={user.avatar} />}

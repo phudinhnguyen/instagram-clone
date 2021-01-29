@@ -50,6 +50,12 @@ class UserRepository {
             payload
         })
     }
+
+    async getRelationship(userId) {
+        return await httpRepository.execute({
+            path: `/user/relationship/${userId}`,
+        })
+    }
 }
 
 export default UserRepository

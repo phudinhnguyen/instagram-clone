@@ -33,6 +33,10 @@ class AuthRepository {
         return token
     }
 
+    removeToken() {
+        localStorage.removeItem(CONFIG.TOKEN_LOCALSTORANGE_FEILD)
+    }
+
     getInfoFromToken() {
         const token = this.getToken()
         const userInfo: User = new User(decode(token))

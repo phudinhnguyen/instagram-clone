@@ -5,12 +5,12 @@ const { getUserInfo, getProfile, search, getRelationship, follow, unfollow } = n
 const useUser = () => {
 
     return {
-        getUserInfo: useAsync(getUserInfo)[ 0 ],
-        getProfile: useAsync(getProfile)[ 0 ],
-        getRelationship: useAsync(getRelationship)[ 0 ],
-        search: useAsync(search)[ 0 ],
-        follow: useAsync(follow)[ 0 ],
-        unfollow: useAsync(unfollow)[ 0 ],
+        getUserInfo: useAsync(getUserInfo)[0],
+        getProfile: useAsync(getProfile)[0],
+        getRelationship: useAsync(getRelationship)[0],
+        search: useAsync(search)[0],
+        follow: useAsync(follow)[0],
+        unfollow: useAsync(unfollow)[0],
     }
 }
 

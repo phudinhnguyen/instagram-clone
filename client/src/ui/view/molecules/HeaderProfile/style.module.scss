@@ -1,0 +1,29 @@
+.header-profile{
+    position: relative;
+
+    .menu-action{
+        max-height: 500px;
+        overflow: auto;
+        background-color: #fff;
+        position: absolute;
+        right: -25px;
+        overflow-y: auto;
+        top: 38px;
+        width: 230px;
+        border-radius: 6px;
+        box-shadow: 0 0 6px -3px black;
+        .menu-item{
+            padding: 8px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            &:hover{
+                background-color: #fafafa;
+            }
+            .text{
+                margin-left: 10px;
+            }
+        }
+    }
+}

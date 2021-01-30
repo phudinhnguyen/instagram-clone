@@ -16,17 +16,19 @@
     .header-navigation {
         display: flex;
         flex-grow: 1;
-    }
-
-    .header-notification {
-        max-height: 500px;
-        overflow: auto;
-        background-color: #fff;
-        position: absolute;
-        right: 0;
-        overflow-y: auto;
-        top: 58px;
-        width: 500px;
+        .nav {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end;
+        
+            .nav-item {
+                margin: 0 0 0 22px;
+        
+                &:first-child {
+                    margin: 0;
+                }
+            }
+        }
     }
 
     .center-item {

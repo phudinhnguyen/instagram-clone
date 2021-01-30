@@ -22,6 +22,10 @@ class AuthPresenter extends AuthInteractor {
         super()
     }
 
+    logout() {
+        super.removeToken()
+    }
+
     async register(data: IRegisterPort) {
         return await new AuthInteractor().register(data)
     }

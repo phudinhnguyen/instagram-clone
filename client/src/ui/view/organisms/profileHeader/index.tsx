@@ -8,8 +8,9 @@ import useUser from 'src/ui/viewModels/useUser'
 import classes from "./style.module.scss"
 
 const ProfileHeader = () => {
+    const history = useHistory()
     const { userId }: { userId: string } = useParams()
-    const { getUserInfo, getRelationship } = useUser()
+    const { getUserInfo, getRelationship, follow, unfollow } = useUser()
 
     const profile = useSelector((state: RootState) => state.profile)
 
@@ -17,38 +18,58 @@ const ProfileHeader = () => {
     const relationship = getRelationship.value
 
     useEffect(() => {
-        getRelationship.execute(userId)
-        getUserInfo.execute(userId)
-    }, [userId])
+        fetchUserInfo(userId)
+    }, [ userId ])
+
+    const fetchUserInfo = (_userId) => {
+        getRelationship.execute(_userId)
+        getUserInfo.execute(_userId)
+    }
+
+    const followAndRefetch = () => {
+        follow.execute(userId).then(res => {
+            fetchUserInfo(userId)
+        })
+    }
+
+    const unfollowAndRefetch = () => {
+        unfollow.execute(userId).then(res => {
+            fetchUserInfo(userId)
+        })
+    }
 
     return (
-        <div className={classes["profile"]}>
-            <div className={classes["profile-image"]}>
-                <Avatar className={classes["avatar"]} src={userInfo.avatar} />
+        <div className={classes[ "profile" ]}>
+            <div className={classes[ "profile-image" ]}>
+                <Avatar className={classes[ "avatar" ]} src={userInfo.avatar} />
             </div>
-            <div className={classes["profile-user-settings"]}>
-                <h1 className={classes["profile-user-name"]}>{userInfo.userName}</h1>
+            <div className={classes[ "profile-user-settings" ]}>
+                <h1 className={classes[ "profile-user-name" ]}>{userInfo.userName}</h1>
                 {
                     userInfo._id == profile._id ?
-                        <button className={classes["profile-btn"]}>Edit Profile</button>
+                        <button className={classes[ "profile-btn" ]}>Edit Profile</button>
                         :
                         <>
                             {
                                 relationship?.isFollowing &&
                                 <>
-                                    <button className={classes["profile-btn"]}>Message</button>
-                                    <button className={classes["profile-btn"]}>Unfollow</button>
+                                    <button
+                                        className={classes[ "profile-btn" ]}
+                                        onClick={() => {
+                                            history.push(`/direct/${ userId }`)
+                                        }}>Message</button>
+                                    <button onClick={unfollowAndRefetch} className={classes[ "profile-btn" ]}>Unfollow</button>
                                 </>
                             }
 
                             {
                                 !relationship?.isFollowing && relationship?.isFollower &&
-                                <button className={classes["profile-btn"]}>Follow back</button>
+                                <button onClick={followAndRefetch} className={classes[ "profile-btn" ]}>Follow back</button>
                             }
 
                             {
                                 !relationship?.isFollowing && !relationship?.isFollower &&
-                                <button className={classes["profile-btn"]}>Follow</button>
+                                <button onClick={followAndRefetch} className={classes[ "profile-btn" ]}>Follow</button>
                             }
                         </>
                 }
@@ -56,15 +77,15 @@ const ProfileHeader = () => {
 
 
             </div>
-            <div className={classes["profile-status"]}>
-                <span className={classes["profile-stat-count"]}><b>123</b> posts</span>
-                <span className={classes["profile-stat-count"]}><b>188</b> followers</span>
-                <span className={classes["profile-stat-count"]}><b>950</b> following</span>
+            <div className={classes[ "profile-status" ]}>
+                <span className={classes[ "profile-stat-count" ]}><b>{userInfo.totalPost}</b> posts</span>
+                <span className={classes[ "profile-stat-count" ]}><b>{userInfo.totalFollower}</b> followers</span>
+                <span className={classes[ "profile-stat-count" ]}><b>{userInfo.totalFollowing}</b> following</span>
             </div>
-            <div className={classes["profile-bio"]}>
+            <div className={classes[ "profile-bio" ]}>
                 <p>
-                    <span className={classes["profile-real-name"]}>{userInfo.fullName}</span>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️
+                    <span className={classes[ "profile-real-name" ]}>{userInfo.fullName}</span>
+                    {profile.aboutMe || profile.fullName}
                 </p>
             </div>
         </div>

@@ -31,6 +31,20 @@ class UserInteractor extends UserRepository {
             return res.map(user => new User(user))
         })
     }
+
+    async follow(userId: string) {
+        const payload = { followerId: userId }
+        return await super.follow(payload).then(res => {
+            return res
+        })
+    }
+
+    async unfollow(userId: string) {
+        const payload = { followerId: userId }
+        return await super.unfollow(payload).then(res => {
+            return res
+        })
+    }
 }
 
 export default UserInteractor

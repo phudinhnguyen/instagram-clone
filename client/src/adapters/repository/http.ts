@@ -33,8 +33,8 @@ class HTTPRepository {
                 break
             }
             case 401: {
-                // window.location.reload();
-                // window.location.href = `/#/login`;
+                window.location.reload();
+                window.location.href = `/#/login`;
                 break;
             }
             case 500: {
@@ -51,7 +51,7 @@ class HTTPRepository {
         const token = new AuthInteractor().getToken()
 
         return {
-            token: `${token}`,
+            token: `${ token }`,
         };
     }
 
@@ -84,12 +84,12 @@ class HTTPRepository {
         const { isPrivate = true, isFormData = false } = config;
 
         if (payload) {
-            arg = [path, payload, this.getDefaultConfig({ isPrivate, isFormData })];
+            arg = [ path, payload, this.getDefaultConfig({ isPrivate, isFormData }) ];
         } else {
-            arg = [path, this.getDefaultConfig({ isPrivate, isFormData })];
+            arg = [ path, this.getDefaultConfig({ isPrivate, isFormData }) ];
         }
 
-        return await this.service[method](...arg)
+        return await this.service[ method ](...arg)
             .then((response) => this.handleSuccess(response))
             .catch((error) => this.handleError(error));
     }

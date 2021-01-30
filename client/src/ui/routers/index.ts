@@ -1,5 +1,6 @@
 import Home from "@view/pages/Home/index";
 import LoginPage from "@view/pages/Login";
+import Message from "@view/pages/Message";
 import ProFilePage from "@view/pages/Profile";
 
 export const privateRouter: Array<{
@@ -19,6 +20,12 @@ export const privateRouter: Array<{
             exact: true,
             isPrivate: true,
             Component: ProFilePage
+        },
+        {
+            path: "/direct/:userId",
+            exact: true,
+            isPrivate: true,
+            Component: Message
         },
     ]
 

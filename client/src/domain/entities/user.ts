@@ -6,12 +6,16 @@ class User {
     email: string = ''
     password: string = ''
     avatar: string = ''
+    totalFollowing: number = 0
+    totalFollower: number = 0
+    totalPost: number = 0
+    aboutMe: string = ""
 
     constructor(user) {
         if (!user) return
         Object.keys(this).forEach(key => {
-            if (user[key]) {
-                this[key] = user[key]
+            if (user[ key ]) {
+                this[ key ] = user[ key ]
             }
         })
     }

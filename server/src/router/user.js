@@ -24,7 +24,7 @@ router.post('/search',
 router.get('/:userId',
     pipe(
         (req) => [req.params.userId, { following: 0 }],
-        userController.getById,
+        userController.getDetailUser,
         { end: true }
     )
 )

@@ -13,18 +13,6 @@
         cursor: pointer;
     }
 
-    .header-search {
-        position: relative;
-
-        .header-search-data {
-            background-color: #fff;
-            position: absolute;
-            top: 30px;
-            overflow-y: auto;
-            width: 100%;
-        }
-    }
-
     .header-navigation {
         display: flex;
         flex-grow: 1;

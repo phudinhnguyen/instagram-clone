@@ -1,5 +1,6 @@
 const User = require('../model/user')
 const { ObjectID, ObjectId } = require("mongodb")
+const postController = require("../controller/post")
 
 let userController = {}
 
@@ -105,7 +106,7 @@ userController.acceptFollow = async (userId, followerId) => {
 }
 
 userController.unfollow = async (userId, followerId) => {
-    const [user] = await userController.getById(userId)
+    const user = await userController.getById(userId)
 
     const following = user.following.filter(id => {
         return followerId != id
@@ -143,13 +144,34 @@ userController.getRelationship = async (myId, userId) => {
 }
 
 userController.getDetailUser = async (userId) => {
-    const user = await User.aggregate([
+    const [user] = await User.aggregate([
         {
             $match: {
                 _id: ObjectId(userId)
             }
+        },
+        {
+            $project: {
+                fullName: '$fullName',
+                userName: '$userName',
+                phone: '$phone',
+                email: '$email',
+                avatar: '$avatar',
+                createdAt: '$createdAt',
+                totalFollowing: { $size: "$following" },
+            }
         }
     ])
+
+    const followers = await userController.getFollowers(userId)
+
+    const posts = await postController.getByFilter({ author: { $eq: userId } })
+
+    return {
+        ...user,
+        totalFollower: followers.length,
+        totalPost: posts.length
+    }
 }
 
 module.exports = userController
